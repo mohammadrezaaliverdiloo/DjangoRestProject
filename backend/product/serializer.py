@@ -3,23 +3,29 @@ from rest_framework import serializers
 from .models import File,Category,Product
 
 
-class CategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
-        fields = ['title','description','avatar',]
+        fields = ['title','description','avatar']
 
-class FileSerializer(serializers.ModelSerializer):
+class FileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = File
-        fields = ['title','file']
+        fields = ['title','file']#add ,'file_set'
 
-class ProductSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.HyperlinkedModelSerializer):
     #category = serializers.StringRelatedField(many=True)
     category = CategorySerializer(many = True)
+    product = FileSerializer(many = True)
+
     
     class Meta:
         model = Product
-        fields = ['title','description','avatar','category']
-        
-        
+        fields = ['slug','title','description','avatar','category','product'] # when I add file_set,give a error with this content attribiute not exists
+
+    
+    # create a custom attribute
+    # foo = serializers.SerializerMethodField()       
+    # def get_foo (self,obj):
+    #     return obj.id
                 
