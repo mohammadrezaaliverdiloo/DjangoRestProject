@@ -41,6 +41,9 @@ class Product(models.Model):
         db_table = 'products'
         verbose_name = _('Product')
         verbose_name_plural = _('Products')
+        
+    def get_category(self):
+        return "-".join([p.title for p in self.category.all()])    
     
 class File(models.Model):
     product = models.ForeignKey(Product,related_name= 'product',on_delete=models.CASCADE,verbose_name = _('product'))

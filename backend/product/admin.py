@@ -3,10 +3,10 @@ from .models import File,Category,Product
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['title','is_enable']#add parent an resolve foreignkey problem
-    list_filter = ['is_enable','parent']
+    list_display = ['title','is_enable','parenet']
+    list_filter = ['is_enable','parenet']
     search_fields = ['title']
-    # filter_horizonta = ['parent']
+    filter_horizonta = ['parenet']
 
 
 
@@ -19,10 +19,10 @@ class FileInLineAdmin(admin.StackedInline):
     
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title','is_enable']#add category and resolve M2M problem
+    list_display = ['title','is_enable','get_category']
     list_filter = ['is_enable']
     search_fields = ['title']
-    # filter_horizontal = ['categories'] #resolve the problem
+    filter_horizontal = ['category']
     
     inlines = [FileInLineAdmin]
     
