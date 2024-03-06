@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from . import ignore_setting as ig
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vt$#b6n0pkw-79v@atn(%)kyce5qi2@=y+iyl8*jva*1!!rj3u'
+SECRET_KEY = ig.SHARED_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = ig.DEBUG
+IS_DEVE =ig.IS_DEVE
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ig.ALLOWED_HOSTS
 
 
 # Application definition
