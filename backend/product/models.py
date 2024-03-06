@@ -45,7 +45,7 @@ class Product(models.Model):
 class File(models.Model):
     product = models.ForeignKey(Product,related_name= 'product',on_delete=models.CASCADE,verbose_name = _('product'))
     title = models.CharField(_('title'),max_length = 255)
-    slug = models.SlugField(_('url'),unique= True)
+    slug = models.SlugField(_('url'))
     file = models.FileField(_('file'),upload_to='files/%Y/%m/%d/')
     is_enable = models.BooleanField(_('status'),default= True)
     created_time = models.DateTimeField(_('created_time'),auto_now_add=True)
