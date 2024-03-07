@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import Http404
+
 
 from .models import(
     File,Category,Product)
@@ -22,19 +22,19 @@ class ProductListView(APIView):
     
 class ProducDeatailView(APIView):
     
-    def get_objects(self,slug):
-        try:
-            product = Product.objects.filter(slug=slug)
-            return product
-        except:
-            raise Http404
+    # def get_objects(self,slug):
+        
         
     
     def get(self,request,slug):
-        products = self.get_objects(slug)
-        serializer  = ProductSerializer(products,many=True,context ={'request': request})
+        try:
+            product = Product.objects.filter(slug=slug)
+        except Product.DoesNotExist:
+            status = status.HTTP_404_NOT_FOUND
+            return Response(status)        
+        
+        serializer  = ProductSerializer(product,many=True,context ={'request': request})
         return Response(serializer.data)    
-
 
     
 class CategoryListView(APIView):
@@ -48,16 +48,16 @@ class CategoryListView(APIView):
   
   
 class CategoryDetailView(APIView):
-    def get_objects(self,slug):
-        try:
-            category = Category.objects.filter(slug=slug)
-            return category
-        except:
-            raise Http404
+    # def get_objects(self,slug):
+
             
     
     def get(self,request,slug):
-        categories = self.get_objects(slug)
-        serializer  = CategorySerializer(categories,many=True,context ={'request': request})
+        try:
+            category = Category.objects.filter(slug=slug)
+        except Category.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        
+        serializer  = CategorySerializer(category,many=True,context ={'request': request})
         return Response(serializer.data)      
   
