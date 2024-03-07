@@ -6,7 +6,7 @@ from .models import File,Category,Product
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
-        fields = ['title','description','avatar']
+        fields = ['slug','title','description','avatar']
 
 class FileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

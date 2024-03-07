@@ -42,5 +42,22 @@ class CategoryListView(APIView):
    def get(self,request):
       category=Category.objects.all()
       serializer=CategorySerializer(category,many = True)
+      print("hello evrybody")
       return Response(serializer.data)
+  
+  
+  
+class CategoryDetailView(APIView):
+    def get_objects(self,slug):
+        try:
+            category = Category.objects.filter(slug=slug)
+            return category
+        except:
+            raise Http404
+            
+    
+    def get(self,request,slug):
+        categories = self.get_objects(slug)
+        serializer  = CategorySerializer(categories,many=True,context ={'request': request})
+        return Response(serializer.data)      
   
