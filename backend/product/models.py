@@ -46,10 +46,19 @@ class Product(models.Model):
         return "-".join([p.title for p in self.category.all()])    
     
 class File(models.Model):
-    product = models.ForeignKey(Product,related_name= 'product',on_delete=models.CASCADE,verbose_name = _('product'))
+    VIDEO_TYPE = 1
+    PDF_TYPE = 2
+    AUDIO_TYPE = 3
+    FILE_TYPE = (
+        (VIDEO_TYPE,_('video')),
+        (PDF_TYPE,_('pdf')),
+        (AUDIO_TYPE,_('audio'))
+    )
+    product = models.ForeignKey(Product,related_name= 'files',on_delete=models.CASCADE,verbose_name = _('product'))
     title = models.CharField(_('title'),max_length = 255)
     slug = models.SlugField(_('url'))
     file = models.FileField(_('file'),upload_to='files/%Y/%m/%d/')
+    file_type = models.PositiveSmallIntegerField(_('file_type'),choices = FILE_TYPE, default = 2)
     is_enable = models.BooleanField(_('status'),default= True)
     created_time = models.DateTimeField(_('created_time'),auto_now_add=True)
     update_time = models.DateTimeField(_('update_time'),auto_now=True)

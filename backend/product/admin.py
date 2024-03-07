@@ -9,12 +9,10 @@ class CategoryAdmin(admin.ModelAdmin):
     filter_horizonta = ['parenet']
 
 
-
 class FileInLineAdmin(admin.StackedInline):
     model = File
-    fields = ['title','file','is_enable']
+    fields = ['title','file','is_enable','slug','file_type']
     extra = 0
-
 
     
 @admin.register(Product)
