@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'product.apps.ProductConfig',
     'user.apps.UserConfig',
     'subscriptions.apps.SubscriptionsConfig',
+    'payment.apps.PaymentConfig',
     
     
 ]
